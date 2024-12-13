@@ -4,11 +4,11 @@ Lista das entidades que fazem parte do sistema:
 3 - Funcionario -> OK
 4 - Cliente -> OK
 5 - TipoDeUsuario -> OK
-6 - ServicoOferecido
-7 - Produto
-8 - Estoque
-9 - Venda
-10 - ServicoFeito
+6 - ServicoOferecido -> OK
+7 - Produto -> OK
+8 - Estoque -> OK
+9 - Venda -> OK
+10 - ServicoFeito -> 
 11 - ServicoAgendado
 12 - EntradaESaidaFuncionario
 13 - GanhoEGastoMensal

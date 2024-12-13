@@ -8,4 +8,4 @@
 5. Pro médico, faz a consulta no pet, gera diagnóstico da consulta, faz a aplicação de vacinas, faz receita pro remédio, visualiza todas as tarefas a serem realizadas por ele no dia.
 6. Pro funcionário, Realiza atendimento ao cliente em geral, agenda serviço(consulta, banho, tosa, vacina, pesagem), Realiza busca e entrega do pet a domicílio, e venda dos produtos que a loja oferece(delivery ou físicamente).
 7. Pro cliente, agenda serviços em geral(banho, tosa, vacina, pesagem, consulta), verifica status do serviço agendado, paga o serviço, compra produto, visualiza os produtos disponíveis pelo petshop, recebe o produto, devolve produto(se estiver no prazo de devolução).
-8. Pro Product owner, Conversar com o dono do petshop para levantar os requisitos mínimos do sistema, 
+8. Pro Product owner, Conversar com o dono do petshop para levantar os requisitos mínimos do sistema,.

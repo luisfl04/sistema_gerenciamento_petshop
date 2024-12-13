@@ -2,9 +2,11 @@ Cronograma do que tem que ser feito no trabalho:
 1 - Levantar os requisitos do sistema -> OK
 2 - Criar o diagrama de requisitos do sistema -> OK --- Adição para os devs, scrum master e product owner -> ok
 3 - Criar o diagrama de caso de uso -> Ok
-4 - Criar o diagrama de entidade relacionamento -> 
+4 - Criar o diagrama de entidade relacionamento -> OK
 5 - Criar o script do banco de dados -> 
-6 - Criar o diagrama de classes -> 
+6 - Criar o diagrama de classes -> OK
 7 - Criar o product backlog do sistema:
     - Precisa ter o responsável pela tarefa, a tarefa em sí, e o tempo que a tarefa demora para ser feita.
+    - SERÃO 4 TABELAS REPRESENTANDO 4 SEMANAS.
+    - CADA SEMANA TEM 40 HORAS DE TRABALHO, SENDO 8 AO DIA.
 8 - Gráfico de acompanhamento de desenvolvimento do sistema. -> 
