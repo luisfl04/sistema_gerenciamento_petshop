@@ -6,8 +6,8 @@ Lista das entidades que fazem parte do sistema:
 5 - TipoDeUsuario -> OK
 6 - ServicoOferecido -> OK
 7 - Produto -> OK
-8 - Estoque -> OK
-9 - Venda -> OK
+8 - Estoque ->  OK
+9 - Venda -> 
 10 - ServicoFeito -> 
 11 - ServicoAgendado
 12 - EntradaESaidaFuncionario
