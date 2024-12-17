@@ -6,13 +6,13 @@
 5. INSERTS em todas as tabelas -> Ok
 6. Uso de consultas aninhadas -> OK
 7. Consultas que envolvam o uso de: 
-  7.1. Produto cartesiano, funções de agregação (SUM, AVG, COUNT) -> 
+  7.1. Produto cartesiano, funções de agregação (SUM, AVG, COUNT) -> OK
   7.2. Predicados (WHERE) -> OK
-       7.2.1. Parâmetros dos predicados (AND, OR e BETWEEN)
-  7.3. Agrupamentos e ordenações (GROUP BY, ORDER BY)
+       7.2.1. Parâmetros dos predicados (AND, OR e BETWEEN) -> OK
+  7.3. Agrupamentos e ordenações (GROUP BY, ORDER BY) -> OK
 8. Inclusão de pelo menos:
-  8.1. Uma Stored Procedure, 
-  8.2. Uma View
+  8.1. Uma Stored Procedure -> OK 
+  8.2. Uma View -> 
   8.3. Uma Trigger -> OK
 9. Procedimentos de controle de transação com o uso dos comandos:
   9.1. "START TRANSACTION confirmando com COMMIT
