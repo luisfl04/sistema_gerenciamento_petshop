@@ -410,12 +410,298 @@ QUE É 7000 */
 -- ****************** TABELA SERVICO_FEITO ****************
 CREATE TABLE SERVICO_FEITO(
 ID_SERVICO_FEITO INT NOT NULL AUTO_INCREMENT,
-
-
+NUMERO_DO_SERVICO INT NOT NULL,
+CLIENTE_CORRESPONDENTE INT NOT NULL,
+DATA_DE_REALIZACAO DATE,
 
 -- CHAVES:
-PRIMARY KEY(ID_SERVICO_FEITO)
+PRIMARY KEY(ID_SERVICO_FEITO),
+CONSTRAINT CHAVE_PARA_O_NUMERO_DO_SERVICO FOREIGN KEY(NUMERO_DO_SERVICO) REFERENCES SERVICO_OFERECIDO(ID_SERVICO_OFERECIDO),
+CONSTRAINT CHAVE_PARA_O_CLIENTE_CORRESPONDENTE FOREIGN KEY(CLIENTE_CORRESPONDENTE) REFERENCES CLIENTE(ID_CLIENTE)
 );
+
+-- POPULANDO A TABELA:
+-- a inserção de valores nesta tabela é feita no arquivo 'insercao_servico_feito.sql' que foi disponibilizado separadamente.
+
+-- ********************* TABELA SERVICO_AGENDADO ***************************
+CREATE TABLE SERVICO_AGENDADO(
+ID_SERVICO_AGENDADO INT NOT NULL AUTO_INCREMENT,
+NUMERO_DO_SERVICO INT NOT NULL,
+CLIENTE_CORRESPONDENTE INT NOT NULL,
+DATA_DE_AGENDAMENTO DATE,
+
+-- CHAVES:
+PRIMARY KEY(ID_SERVICO_AGENDADO),
+CONSTRAINT CHAVE_PARA_O_NUMERO_DO_SERVICO_AGENDADO FOREIGN KEY(NUMERO_DO_SERVICO) REFERENCES SERVICO_OFERECIDO(ID_SERVICO_OFERECIDO),
+CONSTRAINT CHAVE_PARA_O_CLIENTE_DO_SERVICO_AGENDADO FOREIGN KEY(CLIENTE_CORRESPONDENTE) REFERENCES CLIENTE(ID_CLIENTE)
+);
+
+-- POPULANDO A TABELA:
+-- O SCRIPT DE INSERÇÃO DA TABELA ESTÁ DISPONIBILIZADO EM UM ARQUIVO SEPARADO.alter
+
+-- ************** TABELA ENTRADA_SAIDA_FUNCIONARIO **************
+-- CRIANDO TABELA:
+CREATE TABLE ENTREDA_SAIDA_FUNCIONARIO(
+ID_DO_REGISTRO INT NOT NULL AUTO_INCREMENT,
+NUMERO_DO_FUNCIONARIO INT NOT NULL,
+DATA_DO_REGISTRO DATE NOT NULL, 
+HORARIO_DA_ENTRADA CHAR(6) NOT NULL,
+HORARIO_DA_SAIDA CHAR(6) NOT NULL,
+
+-- CHAVES:
+PRIMARY KEY(ID_DO_REGISTRO),
+CONSTRAINT CHAVE_PARA_O_NUMERO_DO_FUNCIONARIO FOREIGN KEY(NUMERO_DO_FUNCIONARIO) REFERENCES FUNCIONARIO(ID_FUNCIONARIO)
+);
+
+-- POPULANDO TABELA:
+-- O SCRIPT DE POPULAÇÃO DESSA TABELA TAMBÉM FICOU EM UM ARQUIVO SEPARADO POR CONTA DA QUANTIDADE DE VALORES.
+
+-- ************************* RECEITA_MENSAL **********************
+-- CRIANDO TABELA:
+CREATE TABLE RECEITA_MENSAL(
+DATA_DO_BALANCO_FINANCEIRO CHAR(4) NOT NULL,
+GANHO_OBTIDO DECIMAL(10,2) NOT NULL,
+GASTO_OBTIDO DECIMAL(10, 2) NOT NULL,
+SALDO_GERAL DECIMAL(10,2)
+);
+
+-- TRIGGER QUE POPULA O VALOR DE 'SALDO_GERAL' DE ACORDO COM OS VALORES PASSADOS EM 'GANHO' E 'GASTO':
+DELIMITER $$
+CREATE TRIGGER POPULAR_SALDO_GERAL_RECEITA
+BEFORE INSERT ON RECEITA_MENSAL 
+FOR EACH ROW
+
+BEGIN
+	SET NEW.SALDO_GERAL = NEW.GANHO_OBTIDO - NEW.GASTO_OBTIDO;
+END $$
+
+DELIMITER ;
+
+-- POPULANDO A TABELA:
+INSERT INTO RECEITA_MENSAL (DATA_DO_BALANCO_FINANCEIRO, GANHO_OBTIDO, GASTO_OBTIDO)
+VALUES
+('2022-01', 15000.00,  9000.00),
+('2022-02', 16000.00, 10000.50),
+('2022-03', 14000.00,  8500.75),
+('2022-04', 15500.00,  9500.25),
+('2022-05', 16500.00, 11000.00),
+('2022-06', 17500.00, 12000.25),
+('2022-07', 18000.00, 12500.50),
+('2022-08', 19000.00, 13500.75),
+('2022-09', 20000.00, 14500.25),
+('2022-10', 21000.00, 15000.50),
+('2022-11', 22000.00, 15500.75),
+('2022-12', 23000.00, 16000.00),
+
+('2023-01', 17000.00,  9500.25),
+('2023-02', 18000.00, 10000.50),
+('2023-03', 16000.00,  8500.75),
+('2023-04', 17500.00,  9500.25),
+('2023-05', 18500.00, 11000.00),
+('2023-06', 19500.00, 12000.25),
+('2023-07', 20000.00, 12500.50),
+('2023-08', 21000.00, 13500.75),
+('2023-09', 22000.00, 14500.25),
+('2023-10', 23000.00, 15000.50),
+('2023-11', 24000.00, 15500.75),
+('2023-12', 25000.00, 16000.00),
+
+('2024-01', 18000.00,  9500.25),
+('2024-02', 19000.00, 10000.50),
+('2024-03', 17000.00,  8500.75),
+('2024-04', 18500.00,  9500.25),
+('2024-05', 19500.00, 11000.00),
+('2024-06', 20500.00, 12000.25),
+('2024-07', 21000.00, 12500.50),
+('2024-08', 22000.00, 13500.75),
+('2024-09', 23000.00, 14500.25),
+('2024-10', 24000.00, 15000.50),
+('2024-11', 25000.00, 15500.75),
+('2024-12', 26000.00, 16000.00);
+
+-- **************** TABELA TIPO_DE_PET ****************
+CREATE TABLE TIPO_DE_PET(
+ID_DO_TIPO_DE_PET INT NOT NULL AUTO_INCREMENT,
+NOME_DO_TIPO VARCHAR(30) NOT NULL,
+DESCRICAO_DO_TIPO VARCHAR(200),
+-- CHAVES:
+PRIMARY KEY(ID_DO_TIPO_DE_PET) 
+);
+
+-- POPULANDO TABELA:
+INSERT INTO TIPO_DE_PET (NOME_DO_TIPO, DESCRICAO_DO_TIPO)
+VALUES
+('Mamíferos', 'Animais de sangue quente'),
+('Aves', 'Animais com penas e bico'),
+('Répteis', 'Animais de sangue frio'),
+('Anfíbios', 'Vivem em água e terra'),
+('Peixes', 'Vivem em ambiente aquático'),
+('Invertebrados', 'Sem coluna vertebral'),
+('Marsupiais', 'Bolsa marsupial'),
+('Roedores', 'Dentes incisivos grandes'),
+('Lagartos', 'Réptil de quatro patas'),
+('Serpentes', 'Cobras não peçonhentas'),
+('Aracnídeos', 'Aranhas e escorpiões'),
+('Insetos', 'Insetos variados'),
+('Crustáceos', 'Caranguejos e afins'),
+('Moluscos', 'Caracóis e polvos'),
+('Exóticos', 'Pets não convencionais'),
+('Domésticos', 'Pets comuns de casa'),
+('Aquáticos', 'Pets de aquário'),
+('Roedores Pequenos', 'Hamsters e ratos'),
+('Lagartos Grandes', 'Iguanas e dragões'),
+('Aves Exóticas', 'Araras e cacatuas'),
+('Peixes Salgados', 'Peixes marinhos'),
+('Peixes Doces', 'Peixes de rio'),
+('Insetos Úteis', 'Joaninhas e grilos'),
+('Artrópodes', 'Tarântulas e afins'),
+('Bichos-Paus', 'Insetos camuflados'),
+('Ouriços', 'Pequenos espinhentos'),
+('Guaxinins', 'Pequenos selvagens'),
+('Petauros', 'Pequenos planadores'),
+('Cavalos', 'Grandes mamíferos'),
+('Mini Porcos', 'Porcos miniatura'),
+('Aves de Fazenda', 'Galinhas e patos'),
+('Formigas', 'Formigueiros caseiros'),
+('Bichos Selvagens', 'Silvestres dóceis'),
+('Salamandras', 'Amfíbios como axolote'),
+('Rãs e Sapos', 'Sapos coloridos');
+
+-- *************** TABELA PET *************
+-- CRIANDO TABELA:
+CREATE TABLE PET(
+ID_DO_PET INT NOT NULL AUTO_INCREMENT,
+NOME_DO_PET VARCHAR(40) NOT NULL,
+APELIDO VARCHAR(40) NOT NULL,
+TIPO_DO_PET INT NOT NULL,
+DONO_DO_PET INT NOT NULL,
+
+-- CHAVES:
+PRIMARY KEY(ID_DO_PET),
+CONSTRAINT CHAVE_PARA_O_TIPO_DO_PET FOREIGN KEY(TIPO_DO_PET) REFERENCES TIPO_DE_PET(ID_DO_TIPO_DE_PET),
+CONSTRAINT CHAVE_PARA_O_DONO_RESPONSAVEL FOREIGN KEY(DONO_DO_PET) REFERENCES CLIENTE(ID_CLIENTE)
+);
+
+-- POPULANDO A TABELA:
+INSERT INTO PET (NOME_DO_PET, APELIDO, TIPO_DO_PET, DONO_DO_PET) VALUES
+('Zeus', 'Leitinho', 1, 793),
+('Rubi', 'Estrelinha', 1, 584),
+('Tom', 'Caramelo', 1, 492),
+('Zeus', 'Bolota', 2, 144),
+('Nick', 'Bebê', 2, 429),
+('Billy', 'Docinho', 2, 282),
+('Leo', 'Doguinho', 3, 521),
+('Fred', 'Diva', 3, 903),
+('Milo', 'Bolinha', 3, 490),
+('Chico', 'Coração', 4, 174),
+('Zara', 'Totó', 4, 548),
+('Luna', 'Rabinho', 4, 80),
+('Simba', 'Caramelo', 5, 255),
+('Chico', 'Caramelo', 5, 1000),
+('Zeus', 'Totó', 5, 546),
+('Rubi', 'Batata', 6, 765),
+('Fiona', 'Miau', 6, 710),
+('Charlie', 'Estrelinha', 6, 239),
+('Nina', 'Fofo', 7, 927),
+('Bolt', 'Gigante', 7, 758),
+('Zeus', 'Estrelinha', 7, 521),
+('Neguinho', 'Panda', 8, 99),
+('Thor', 'Estrelinha', 8, 274),
+('Amora', 'Fofo', 8, 851),
+('Simba', 'Caramelo', 9, 440),
+('Mel', 'Pipoca', 9, 811),
+('Neguinho', 'Pretinho', 9, 516),
+('Thor', 'Biscoito', 10, 758),
+('Zara', 'Biscoito', 10, 775),
+('Charlie', 'Churros', 10, 714),
+('Bobby', 'Coração', 11, 726),
+('Rubi', 'Panqueca', 11, 795),
+('Rex', 'Estrelinha', 11, 716),
+('Zara', 'Leitinho', 12, 275),
+('Milo', 'Estrelinha', 12, 154),
+('Neguinho', 'Mordomo', 12, 270),
+('Simba', 'Bigode', 13, 901),
+('Princesa', 'Tigrinho', 13, 910),
+('Chico', 'Biscoito', 13, 430),
+('Max', 'Melzinho', 14, 221),
+('Nina', 'Bichinho', 14, 222),
+('Charlie', 'Leitinho', 14, 420),
+('Nina', 'Caramelo', 15, 672),
+('Sofia', 'Estrelinha', 15, 292),
+('Chico', 'Fofura', 15, 92),
+('Bobby', 'Mordomo', 16, 84),
+('Leo', 'Mordomo', 16, 617),
+('Luna', 'Leitinho', 16, 866),
+('Pipoca', 'Xodó', 17, 585),
+('Bella', 'Diva', 17, 64),
+('Neguinho', 'Pipoca', 17, 677),
+('Charlie', 'Doguinho', 18, 169),
+('Tom', 'Miau', 18, 322),
+('Simba', 'Bebê', 18, 409),
+('Nick', 'Tigrinho', 19, 561),
+('Nina', 'Panda', 19, 628),
+('Thor', 'Diva', 19, 31),
+('Mel', 'Fofura', 20, 280),
+('Milo', 'Doguinho', 20, 511),
+('Rubi', 'Gigante', 20, 946),
+('Zeus', 'Mimi', 21, 959),
+('Fiona', 'Mimi', 21, 251),
+('Max', 'Miau', 21, 874),
+('Pipoca', 'Fofo', 22, 520),
+('Rubi', 'Bebê', 22, 557),
+('Bella', 'Doguinho', 22, 169),
+('Neguinho', 'Peludo', 23, 981),
+('Rex', 'Doguinho', 23, 860),
+('Thor', 'Leitinho', 23, 176),
+('Amora', 'Lindinho', 24, 731),
+('Amora', 'Fofura', 24, 620),
+('Zara', 'Pipoca', 24, 43),
+('Pingo', 'Estrelinha', 25, 568),
+('Rocky', 'Gigante', 25, 139),
+('Sofia', 'Xodó', 25, 6),
+('Bolt', 'Coração', 26, 989),
+('Pipoca', 'Lindinho', 26, 895),
+('Mel', 'Miau', 26, 226),
+('Mingau', 'Nuvem', 27, 260),
+('Neguinho', 'Bichinho', 27, 64),
+('Princesa', 'Lindinho', 27, 758),
+('Thor', 'Xodó', 28, 440),
+('Zara', 'Fofo', 28, 702),
+('Estrela', 'Nuvem', 28, 261),
+('Neguinho', 'Pipoca', 29, 883),
+('Thor', 'Xodó', 29, 219),
+('Neguinho', 'Bolinha', 29, 569),
+('Pandora', 'Lindinho', 30, 272),
+('Pingo', 'Bebê', 30, 19),
+('Nick', 'Diva', 30, 252),
+('Thor', 'Batata', 31, 660),
+('Zara', 'Melzinho', 31, 769),
+('Bolt', 'Bolinha', 31, 700),
+('Thor', 'Totó', 32, 412),
+('Sofia', 'Peludo', 32, 932),
+('Pingo', 'Fofura', 32, 519),
+('Bobby', 'Estrelinha', 33, 393),
+('Nina', 'Mordomo', 33, 982),
+('Bobby', 'Miau', 33, 647),
+('Pipoca', 'Rabinho', 34, 606),
+('Neguinho', 'Fofo', 34, 597),
+('Bobby', 'Totó', 34, 284),
+('Estrela', 'Leitinho', 35, 788),
+('Thor', 'Totó', 35, 197),
+('Rex', 'Totó', 35, 185),
+('Bobby', 'Miau', 36, 17),
+('Cacau', 'Biscoito', 36, 65),
+('Rocky', 'Pretinho', 36, 54);
+
+
+
+
+
+
+
+
+
+
 
 
 
