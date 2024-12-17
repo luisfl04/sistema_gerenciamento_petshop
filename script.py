@@ -1,41 +1,37 @@
 import random
+from datetime import datetime, timedelta
 
 # Nome do arquivo SQL de saída
-output_file = "populate_pet.sql"
+output_file = "populate_agenda_veterinario.sql"
 
-# Lista de nomes de pets comuns
-nomes_de_pets = [
-    "Bobby", "Rex", "Milo", "Luna", "Bella", "Max", "Charlie", "Simba", "Nina", "Thor",
-    "Mel", "Sofia", "Pandora", "Fred", "Romeu", "Rocky", "Billy", "Pitoco", "Zara", "Amora",
-    "Toby", "Princesa", "Neguinho", "Snow", "Bob", "Tom", "Mingau", "Pipoca", "Estrela", "Rubi",
-    "Leo", "Nick", "Zeus", "Thor", "Pingo", "Cacau", "Chico", "Nina", "Fiona", "Bolt"
-]
+# Parâmetros
+numero_veterinarios = list(range(1, 11))  # Veterinários de 1 a 10
+pets = list(range(1, 103))  # Pets de 1 a 102
+servicos = list(range(1, 21))  # Serviços de 1 a 20
+status_servico = ["AGENDADO", "REALIZADO"]  # Status do serviço
 
-apelidos_de_pets = [
-    "Bichinho", "Fofura", "Lindinho", "Tigrinho", "Pretinho", "Branquinho", "Bolinha", "Peludo",
-    "Bigode", "Miau", "Totó", "Fofo", "Amigão", "Docinho", "Rabinho", "Mordomo", "Biscoito", "Panda",
-    "Doguinho", "Xodó", "Leitinho", "Panqueca", "Batata", "Churros", "Nuvem", "Coração", "Bebê",
-    "Caramelo", "Melzinho", "Diva", "Estrelinha", "Mimi", "Pipoca", "Gigante", "Bolota"
-]
+data_inicio = datetime(2024, 4, 1)  # Data de início
+numero_de_dias = 60  # Dias até 2024-05-30
+numero_registros = 300  # Total de registros
 
-# Lista de tipos de PETs (IDs da tabela TIPO_DE_PET)
-tipo_pets = list(range(1, 37))  # Assumindo que existam 36 tipos de pets
-
-total_pets_per_type = 3  # Quantidade de pets por tipo
-total_clientes = 1000    # IDs de clientes variam de 1 a 1000
+# Gerar datas entre data_inicio e data_inicio + numero_de_dias
+def generate_random_date():
+    random_days = random.randint(0, numero_de_dias - 1)
+    return (data_inicio + timedelta(days=random_days)).strftime('%Y-%m-%d')
 
 # Abrindo o arquivo para escrita
 with open(output_file, "w") as file:
-    file.write("-- Script para popular a tabela PET\n")
-    file.write("INSERT INTO PET (NOME_DO_PET, APELIDO, TIPO_DO_PET, DONO_DO_PET) VALUES\n")
+    file.write("-- Script para popular a tabela AGENDA_DO_VETERINARIO\n")
+    file.write("INSERT INTO AGENDA_DO_VETERINARIO (NUMERO_DO_VETERINARIO, DATA_DO_REGISTRO, STATUS_DO_SERVICO, PET_RELACIONADO, SERVICO) VALUES\n")
 
     registros = []
-    for tipo_pet in tipo_pets:
-        for _ in range(total_pets_per_type):
-            nome_do_pet = random.choice(nomes_de_pets)
-            apelido = random.choice(apelidos_de_pets)
-            dono_do_pet = random.randint(1, total_clientes)
-            registros.append(f"('{nome_do_pet}', '{apelido}', {tipo_pet}, {dono_do_pet})")
+    for _ in range(numero_registros):
+        numero_veterinario = random.choice(numero_veterinarios)
+        data_do_registro = generate_random_date()
+        status = random.choice(status_servico)
+        pet_relacionado = random.choice(pets)
+        servico = random.choice(servicos)
+        registros.append(f"({numero_veterinario}, '{data_do_registro}', '{status}', {pet_relacionado}, {servico})")
 
     # Escrevendo registros com formatação correta
     file.write(",\n".join(registros))

@@ -12,9 +12,11 @@ Lista das entidades que fazem parte do sistema:
 11 - ServicoAgendado -> OK
 12 - EntradaESaidaFuncionario -> OK
 13 - GanhoEGastoMensal -> OK
-14 - Pet -> 
+14 - Pet -> OK
 15 - TipoDePet -> OK
-16 - AgendaDeServicoDoVeterinario -> 
+16 - AgendaDeServicoDoVeterinario ->  OK
 17 - StatusDoServico -> 
 18 - HistoricoDeServicoDoVeterinario -> 
 19 - DevolucaoProduto -> 
+
+
