@@ -3,11 +3,11 @@
 2. Consulta com estrutura DML -> OK
 3. Implementação de Chaves (primárias e secundárias) -> OK
 4. Configuração dos relacionamentos -> OK
-5. INSERTS em todas as tabelas
-6. Uso de consultas aninhadas
+5. INSERTS em todas as tabelas -> Ok
+6. Uso de consultas aninhadas -> OK
 7. Consultas que envolvam o uso de: 
-  7.1. Produto cartesiano, funções de agregação (SUM, AVG, COUNT), 
-  7.2. Predicados (WHERE)
+  7.1. Produto cartesiano, funções de agregação (SUM, AVG, COUNT) -> 
+  7.2. Predicados (WHERE) -> OK
        7.2.1. Parâmetros dos predicados (AND, OR e BETWEEN)
   7.3. Agrupamentos e ordenações (GROUP BY, ORDER BY)
 8. Inclusão de pelo menos:
