@@ -44,27 +44,53 @@ FROM AGENDA_DO_VETERINARIO A, PET P
 WHERE A.PET_RELACIONADO = P.ID_DO_PET
 GROUP BY A.DATA_DO_REGISTRO, P.APELIDO;
 
--- ****** IMPLEMENTANDO STORES PROCEDURES ************:
+-- CONSULTAS COM CONTROLE DE TRANSAÇÃO:
 
--- PROCEDURE QUE OBTÉM A SOMA DOS VALORES DE PRODUTOS COMPRADOS POR DETERMINADO CLIENTE QUE SERÁ PASSADO POR PARÂMETRO:
-DELIMITER $$
-CREATE PROCEDURE OBTER_GASTOS_COM_PRODUTOS(IN ID_DO_CLIENTE INT)
-BEGIN
-	-- VARIÁVEL QUE ARMAZENARÁ O VALOR DAS SOMAS:
-    DECLARE SOMA_DOS_GASTOS DECIMAL(10, 2);
-	
-    -- OBTENDO A SOMA DOS VALORES:
-    SELECT SUM(VALOR_DA_VENDA) INTO SOMA_DOS_GASTOS
-    FROM VENDA_FEITA
-    WHERE CLIENTE_COMPRADOR = ID_DO_CLIENTE;
-    
-    -- EXIBINDO VALORES:
-	SELECT SOMA_DOS_GASTOS;
-END $$
+-- FAZENDO UMA INSERÇÃO SIMPLES E SALVANDO:
+START TRANSACTION;
 
-DELIMITER ;
+INSERT INTO PET(NOME_DO_PET, APELIDO, TIPO_DO_PET, DONO_DO_PET) VALUES
+('NEGO NEY', 'NEGO', 1, 231);
 
--- IMPLEMENTAR OUTRA STORE PROCEDURE.
+COMMIT;
+
+-- ALTERANDO UMA COLUNA DE TABELA E DEPOIS FAZENDO ROLLBACK:
+START TRANSACTION;
+
+ALTER TABLE TIPO_DE_PET
+CHANGE COLUMN NOME_INDEFINIDIDO NOME_DO_TIPO VARCHAR(100) NOT NULL;
+
+ROLLBACK;
+
+COMMIT;
+
+-- ALTERANDO O NIVEL DE ISOLAMENTO DO BANCO:
+SET GLOBAL TRANSACTION ISOLATION LEVEL SERIALIZABLE; 
+
+-- SIMULANDO DOIS USUÁRIOS LENDOS OS MESMOS VALORES NO SERVIDOR:
+-- user01:
+start transaction;
+-- definiu o nivel de isolamento e começou uma transação
+-- user02:
+set transaction isolation level serializable;
+start transaction;
+-- Fez o mesmo que o user01.
+-- user01:
+insert into pessoa(primeiro_nome, sobrenome, data_de_nascimento, cidade, estado)
+values
+('sergio', 'barros', '1980-05-19', 'teresina', 'pi');
+select * from pessoa;
+-- inseriu valor na tabela e fez uma seleção(Onde o novo valor inserido irá aparecer).
+-- user02:
+select * from pessoa; /* esse comando não irá ser execultado, o banco irá tentar até perder a conexão com o
+ servidor. Isso acontece porque o primeiro usuário ainda não terminou a sua transação(Deu commit). */
+-- user01:
+commit; -- salvou as alterações feitas.
+-- user02:
+select * from pessoa; -- Agora consegue acessar os valores, visto que a outra transação concorrente foi finalizada
+commit; -- Termina a sua transação.	
+
+
 
 
 
