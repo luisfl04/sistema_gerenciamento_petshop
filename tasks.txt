@@ -7,3 +7,4 @@ Cronograma do que tem que ser feito no trabalho:
 6 - Criar o diagrama de classes -> OK
 7 - Refinar o product backlog e tranformá-lo em pdf -> 
 8 - Gráfico de acompanhamento de desenvolvimento do sistema. -> 
+
