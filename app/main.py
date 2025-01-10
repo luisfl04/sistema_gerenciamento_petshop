@@ -14,7 +14,7 @@ def main(page: ft.Page):
         conexao = banco.conectarBanco()
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT * FROM AGENDA_DO_VETERINARIO")  # Substitua por sua consulta
+            cursor.execute("SELECT * FROM VETERINARIO")  # Substitua por sua consulta
             resultados = cursor.fetchall()
             conexao.close()
             
