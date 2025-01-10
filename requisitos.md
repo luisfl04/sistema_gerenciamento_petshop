@@ -1,7 +1,6 @@
 # Sistema abstrato petshop
 
 ## Requisitos definidos:
-- Conseguir rodar aplicação a partir do terminal -> 
 - O sistema deve se integrar ao banco MySql ->  
 - O sistema deve ter login e cadastro ->
 - Deve ter telas de login, cadastro e home -> 
