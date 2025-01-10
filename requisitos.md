@@ -1,8 +1,15 @@
-# Sistema abstrato petshop
-
-## Requisitos definidos:
-- O sistema deve se integrar ao banco MySql ->  
 - O sistema deve ter login e cadastro ->
+    Cadastro:
+        - Implementar página simples -> 
+        - > Implementar gerenciador de rotas em um módulo separado de modo que toda a aplicação consiga acessá-lo sem problemas -> 
+        - Cadastro usuário no banco de dados conforme as colunas do bd e tipos de usuários listados lá-> 
+        - Implementar botão para redirecionar a página de login -> 
+
+    Login: 
+      -
+
+
+
 - Deve ter telas de login, cadastro e home -> 
 2. Os usuários que fazem login devem ser classificados em: Gerente, Médico vetenário, funcionário, cliente.
 3. Os serviços que o petshop oferece são: banho de pet, tosa, vacinas em geral, pesagem, venda de acessórios(físico ou delivery ), remédios, serviço de busca e entrega do pet.
