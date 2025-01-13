@@ -3,49 +3,36 @@
 # Imports usados:
 import flet as ft
 from banco_de_dados import GerenciadorDeBancoDeDados
-from cadastro import exibirTelaDeCadastro
-from  login import exibirTelaDeLogin
+from gerenciador_rotas import GerenciadorRotasAplicacao
 
-class GerenciadorRotasAplicacao:
+class Main:
 
-    """
-    Função que gerencia o fluxo de rotas da aplicação.
-    """
-
-    # Obtendo instância da página:
-    pagina = ft.Page
-
-    def obterRotaAtual(self):
-       # Função que retorna a rota atual em que a aplicação está:
-        return self.pagina.route
-
-    def definirRotaAplicacao(self, rota_passada):
-        # Função que define a rota atual da aplicação
-
-        # Obtendo rota:
-        self.pagina.route = rota_passada
+    def definirPaginaAplicacao(self, page: ft.Page, pagina_para_renderizar: str):
+        """
+        Função que define a pagina que vai ser renderizada na aplicação de acordo com a rota passada por parâmetro.
+        """ 
         
-        # Redirecionando para a rota:
-        if rota_passada == "/":
-            exibirTelaDeLogin()
-        elif rota_passada == "/cadastro":
-            exibirTelaDeCadastro()
-
-# Função principal da execução:
-def main(page: ft.Page):
-
-    # Configurações gerais da aplicação:
-    page.scroll = "auto"
-    page.title = "Gerenciamento Petshop"
+        if pagina_para_renderizar == "/":
+            page.route = "/"
+            GerenciadorRotasAplicacao.definirRotaAplicacao(self, page, '/')
+            print(page.route)
+        elif pagina_para_renderizar == "/cadastro":
+            page.route = "/cadastro"
+            GerenciadorRotasAplicacao.definirRotaAplicacao(self, page, '/cadastro')
+            print(page.route) 
+        
     
-    # Rotas da aplicação:
-    rotas = GerenciadorRotasAplicacao()
-    rotas.definirRotaAplicacao("/cadastro")
-    
-    print("rota atual -> ", rotas.obterRotaAtual())
+    def main(self, page: ft.Page):
+
+        """
+        Função principal da aplicação
+        """
+        
+        page.title = "Gerenciamento PetShop"
+        self.definirPaginaAplicacao(page, '/cadastro')
 
 
-
-
+# Inicia a execução da aplicação:
 if __name__ == "__main__":
-    ft.app(main)
+    aplicativo = Main()
+    ft.app(target=aplicativo.main)

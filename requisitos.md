@@ -1,7 +1,7 @@
 - O sistema deve ter login e cadastro ->
     Cadastro:
-        - Implementar página simples -> 
-        - > Implementar gerenciador de rotas em um módulo separado de modo que toda a aplicação consiga acessá-lo sem problemas -> 
+        - Implementar página simples -> Ok
+        -  Implementar gerenciador de rotas em um módulo separado de modo que toda a aplicação consiga acessá-lo sem problemas -> 
         - Cadastro usuário no banco de dados conforme as colunas do bd e tipos de usuários listados lá-> 
         - Implementar botão para redirecionar a página de login -> 
 

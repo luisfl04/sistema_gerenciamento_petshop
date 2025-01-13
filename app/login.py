@@ -3,6 +3,6 @@
 # Imports usados:
 import flet as ft
 
-def exibirTelaDeLogin():
+def exibirTelaDeLogin(page: ft.Page):
     # Função que exibe a tela de cadastro de usuários:
     return ft.Container(ft.Text("Tela de login"))
