@@ -10,7 +10,7 @@ class TelaDeLogin:
     Classe que contém toda a lógica e métodos usados na tela de login da aplicação.
     """
 
-    def exibirTelaDeLogin(page):
+    def exibirTelaDeLogin(self, page):
 
         print(page.route)
 

@@ -10,25 +10,15 @@ class TelaDeCadastro:
     Classe com a lógica de cadastro de usuários na aplicação.
     """
 
-    def definirConfiguracoesGeraisCadastro(self, page):
-        """
-        Função que define as configurações gerais da tela de cadastro de usuários.
-        """
-
-        page.title = "Tela de cadastro"
-
         
-
-
     def exibirTelaDeCadastro(self, page):
 
         """
         Função que exibe os componentes pertencentes a tela de cadastro de usuários.
         """
-        print(page.route)
-        page.title = "Tela de cadastro"
-        page.vertical_alignment = ft.MainAxisAlignment.CENTER
-        page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+        
+        self.definirConfiguracoesGeraisCadastro(page) # Definindo configurações gerais da página.
+
 
         botao_login = ft.ElevatedButton(
             text="Voltar para tela de login",
@@ -51,5 +41,12 @@ class TelaDeCadastro:
         )
         page.update()
 
+    def definirConfiguracoesGeraisCadastro(self, page):
+        """
+        Função que define as configurações gerais da tela de cadastro de usuários.
+        """
 
+        page.title = "Cadastro de usuário"
+        page.vertical_alignment = ft.MainAxisAlignment.CENTER
+        page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 

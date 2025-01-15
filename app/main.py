@@ -9,6 +9,16 @@ from login import TelaDeLogin
 
 class Main:
 
+    """
+    Classe com a lógica principal de incialização e configuração da aplicação.
+    """
+
+
+    def __init__(self):
+        # Criando instâncias para todos os módulos implementados no app:
+        self.tela_de_login = TelaDeLogin()  
+        self.tela_de_cadastro = TelaDeCadastro()  
+
     def route_change(self, page, route):
         """
         Função que define a rota atual da aplicação.
@@ -17,10 +27,10 @@ class Main:
         # Redirecionando com base na rota:
         if route == "/":
             page.route = "/"
-            TelaDeLogin.exibirTelaDeLogin(page)
+            self.tela_de_login.exibirTelaDeLogin(page)        
         elif route == "/cadastro":
             page.route = "/cadastro"
-            TelaDeCadastro.exibirTelaDeCadastro(self, page)
+            self.tela_de_cadastro.exibirTelaDeCadastro(page)
         
     
     def main(self, page: ft.Page):
