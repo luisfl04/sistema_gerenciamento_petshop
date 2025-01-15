@@ -2,8 +2,8 @@
 
 # Imports usados:
 import flet as ft
-from cadastro import TelaDeCadastro
-from login import TelaDeLogin
+from tela_de_cadastro import TelaDeCadastro
+from tela_de_login import TelaDeLogin
 
 
 class Main:

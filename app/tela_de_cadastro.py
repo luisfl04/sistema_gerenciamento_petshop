@@ -2,7 +2,7 @@
 
 # Imports usados:
 import flet as ft
-from banco_de_dados import GerenciadorDeBancoDeDados
+from gerenciador_banco_de_dados import GerenciadorDeBancoDeDados
 
 
 class TelaDeCadastro:
