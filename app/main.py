@@ -2,7 +2,6 @@
 
 # Imports usados:
 import flet as ft
-from banco_de_dados import GerenciadorDeBancoDeDados
 from cadastro import TelaDeCadastro
 from login import TelaDeLogin
 
