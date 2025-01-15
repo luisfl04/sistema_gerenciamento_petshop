@@ -3,8 +3,8 @@
 # Imports usados:
 import flet as ft
 from banco_de_dados import GerenciadorDeBancoDeDados
-from cadastro import exibirTelaDeCadastro
-from login import exibirTelaDeLogin
+from cadastro import TelaDeCadastro
+from login import TelaDeLogin
 
 
 class Main:
@@ -16,10 +16,11 @@ class Main:
 
         # Redirecionando com base na rota:
         if route == "/":
-            exibirTelaDeLogin(page)
+            page.route = "/"
+            TelaDeLogin.exibirTelaDeLogin(page)
         elif route == "/cadastro":
-            print('cai aqui')
-            exibirTelaDeCadastro(page)
+            page.route = "/cadastro"
+            TelaDeCadastro.exibirTelaDeCadastro(self, page)
         
     
     def main(self, page: ft.Page):
@@ -30,8 +31,7 @@ class Main:
         
         page.title = "Gerenciamento PetShop"
         page.on_route_change = lambda event: self.route_change(page, page.route)
-        page.route = "/cadastro"
-        page.go(page.route)
+        page.go('/cadastro')
 
 
 

@@ -1,8 +1,8 @@
 - O sistema deve ter login e cadastro ->
     Cadastro:
         - Implementar página simples -> Ok
-        -  Implementar gerenciador de rotas com 'page.go' -> 
-        - Cadastro usuário no banco de dados conforme as colunas do bd e tipos de usuários listados lá-> 
+        -  Implementar gerenciador de rotas com 'page.go' -> OK
+        - Cadastro usuário no banco de dados conforme as colunas do bd e tipos de usuários listados lá -> 
         - Implementar botão para redirecionar a página de login -> 
 
     Login: 

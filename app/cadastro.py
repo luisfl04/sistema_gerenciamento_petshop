@@ -3,33 +3,53 @@
 # Imports usados:
 import flet as ft
 
-def exibirTelaDeCadastro(page: ft.Page):
 
-    # Função que exibe a tela de cadastro de usuários:
-    page.title = "Tela de cadastro"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+class TelaDeCadastro:
 
-    botao_login = ft.ElevatedButton(
-        text="Voltar para tela de login",
-        on_click=lambda _: page.go("/")
-    )
+    """
+    Classe com a lógica de cadastro de usuários na aplicação.
+    """
 
-    texto = ft.Text("Tela de cadastro")
-    page.controls.clear()
-    page.controls.append(
-        ft.Container(
-            content=ft.Column(
-                controls=[
-                    texto,
-                    botao_login
-                ]
-            ),
-            alignment=ft.alignment.center
+    def definirConfiguracoesGeraisCadastro(self, page):
+        """
+        Função que define as configurações gerais da tela de cadastro de usuários.
+        """
+
+        page.title = "Tela de cadastro"
+
+        
+
+
+    def exibirTelaDeCadastro(self, page):
+
+        """
+        Função que exibe os componentes pertencentes a tela de cadastro de usuários.
+        """
+        print(page.route)
+        page.title = "Tela de cadastro"
+        page.vertical_alignment = ft.MainAxisAlignment.CENTER
+        page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+        botao_login = ft.ElevatedButton(
+            text="Voltar para tela de login",
+            on_click=lambda _: page.go("/")
         )
 
-    )
-    page.update()
+        texto = ft.Text("Tela de cadastro")
+        page.controls.clear()
+        page.controls.append(
+            ft.Container(
+                content=ft.Column(
+                    controls=[
+                        texto,
+                        botao_login
+                    ]
+                ),
+                alignment=ft.alignment.center
+            )
+
+        )
+        page.update()
 
 
 
