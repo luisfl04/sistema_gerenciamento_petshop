@@ -3,23 +3,23 @@
 # Imports usados:
 import flet as ft
 from banco_de_dados import GerenciadorDeBancoDeDados
-from gerenciador_rotas import GerenciadorRotasAplicacao
+from cadastro import exibirTelaDeCadastro
+from login import exibirTelaDeLogin
+
 
 class Main:
 
-    def definirPaginaAplicacao(self, page: ft.Page, pagina_para_renderizar: str):
+    def route_change(self, page, route):
         """
-        Função que define a pagina que vai ser renderizada na aplicação de acordo com a rota passada por parâmetro.
-        """ 
-        
-        if pagina_para_renderizar == "/":
-            page.route = "/"
-            GerenciadorRotasAplicacao.definirRotaAplicacao(self, page, '/')
-            print(page.route)
-        elif pagina_para_renderizar == "/cadastro":
-            page.route = "/cadastro"
-            GerenciadorRotasAplicacao.definirRotaAplicacao(self, page, '/cadastro')
-            print(page.route) 
+        Função que define a rota atual da aplicação.
+        """
+
+        # Redirecionando com base na rota:
+        if route == "/":
+            exibirTelaDeLogin(page)
+        elif route == "/cadastro":
+            print('cai aqui')
+            exibirTelaDeCadastro(page)
         
     
     def main(self, page: ft.Page):
@@ -29,7 +29,10 @@ class Main:
         """
         
         page.title = "Gerenciamento PetShop"
-        self.definirPaginaAplicacao(page, '/cadastro')
+        page.on_route_change = lambda event: self.route_change(page, page.route)
+        page.route = "/cadastro"
+        page.go(page.route)
+
 
 
 # Inicia a execução da aplicação:
