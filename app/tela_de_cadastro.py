@@ -25,31 +25,6 @@ class TelaDeCadastro:
         self.definirConfiguracoesGeraisCadastro(page) # Definindo configurações gerais da página.
         self.iniciarConexaoComBancoDeDados() # Criando conexão com o banco de dados
         
-
-        
-
-
-        botao_login = ft.ElevatedButton(
-            text="Voltar para tela de login",
-            on_click=lambda _: page.go("/")
-        )
-
-        texto = ft.Text("Tela de cadastro")
-        page.controls.clear()
-        page.controls.append(
-            ft.Container(
-                content=ft.Column(
-                    controls=[
-                        texto,
-                        botao_login
-                    ]
-                ),
-                alignment=ft.alignment.center
-            )
-
-        )
-        page.update()
-
     def definirConfiguracoesGeraisCadastro(self, page):
         """
         Função que define as configurações gerais da tela de cadastro de usuários.
@@ -64,6 +39,9 @@ class TelaDeCadastro:
         Função que inicia a conexão com o banco de dados.
         """
 
-        self.gerenciador_de_banco_de_dados.conectarBanco()
+        try:
+            self.gerenciador_de_banco_de_dados.conectarBanco()
+        except Exception as excessao:
+            print(f"Erro ao iniciar conexão com o banco de dados: {excessao}")
         
 
