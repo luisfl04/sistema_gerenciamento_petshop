@@ -1,7 +1,11 @@
 - O sistema deve ter login e cadastro ->
-    Cadastro:
-        - Implementar página simples -> Ok
-        -  Implementar gerenciador de rotas com 'page.go' -> OK
+    Cadastro:  
+        - Validar se username já foi cadastrado no banco de dados no momento de cadastro -> 
+        - validar email -> 
+        - validar data de nascimento -> 
+        - Validar sexo antes de enviar ao banco de dados -> 
+        - Validar tipo de usuário antes de enviar ao banco de dados -> 
+        - Validar senha -> 
         - Cadastro usuário no banco de dados conforme as colunas do bd e tipos de usuários listados lá -> 
         - Implementar botão para redirecionar a página de login -> 
 
