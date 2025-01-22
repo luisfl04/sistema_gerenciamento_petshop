@@ -18,18 +18,6 @@ class Main:
         # Criando instâncias para todos os módulos implementados no app:
         self.tela_de_login = TelaDeLogin()  
         self.tela_de_cadastro = TelaDeCadastro()
-        self.gerenciador_banco_de_dados = GerenciadorDeBancoDeDados()  
-
-    def iniciarConexaoComBancoDeDados(self):
-        """
-        Função que inicia a conexão com o banco de dados ao iniciar a aplicação.
-        """
-
-        try:
-            self.gerenciador_banco_de_dados.conectarBanco()
-        except Exception as excessao:
-            print(f"Erro ao iniciar conexão com o banco de dados: {excessao}")
-
     
     def route_change(self, page, route):
         """
@@ -53,7 +41,6 @@ class Main:
         
         page.title = "Gerenciamento PetShop"
         page.on_route_change = lambda event: self.route_change(page, page.route)
-        self.iniciarConexaoComBancoDeDados() # Tendo conectar ao banco de dados.
         page.go('/cadastro')
 
 

@@ -127,19 +127,10 @@ class TelaDeCadastro:
         senha = self.criar_senha.value
         confirmar_senha = self.confirmar_senha.value
 
-        # Validando nome e sobrenome passados.
-        self.utilidades.validarNomeESobrenomeNoCadastro(page, nome, sobrenome)
-        
-        if not nome or not sobrenome:
-            page.snack_bar = SnackBar(
-                content=Text("Informe os valores para nome e sobrenome!"),
-                bgcolor="red",
-                duration=3000,  # Duração em milissegundos
-            )
-            page.snack_bar.open = True
-            page.update()
-            return
-
+        # Validações dos valores do formulário:
+        self.utilidades.validarNomeESobrenomeNoCadastroDeUsuario(page, nome, sobrenome) # Validando nome e sobrenome
+        self.utilidades.validarUsernameNoCadastroDeUsuario(page, self.username.value) # Validando username
+    
         # Validando se senhas coincidem:
         if senha != confirmar_senha:
             page.snack_bar = SnackBar(

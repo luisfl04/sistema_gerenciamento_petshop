@@ -3,7 +3,7 @@
 
 # Libs usadas:
 from flet import SnackBar, Text
-
+from gerenciador_banco_de_dados import GerenciadorDeBancoDeDados
 
 class Utilidades:
 
@@ -11,7 +11,11 @@ class Utilidades:
     Classe com funções utilitárias para a aplicação.
     """
 
-    def validarNomeESobrenomeNoCadastro(self, page, nome_passado, sobrenome_passado):
+    def __init__(self):
+        self.gerenciador_banco_de_dados = GerenciadorDeBancoDeDados()
+
+
+    def validarNomeESobrenomeNoCadastroDeUsuario(self, page, nome_passado, sobrenome_passado):
         """
         Função que valida o nome e sobrenome passados no cadastro.
         """
@@ -24,5 +28,28 @@ class Utilidades:
             page.snack_bar.open = True
             page.update()
             return False
-        
-    def validar
+    
+    def validarUsernameNoCadastroDeUsuario(self, page, username_passado):
+        """
+        Função que valida o username passado no cadastro. A validação é feita para verificar se o username já foi cadastrado 
+        no banco de dados e se ele foi deixado vazio no momento do cadastro.
+        """
+        if not username_passado:
+            # Adicionando snackbar de erro na tela:
+            page.snack_bar = SnackBar(
+                content= Text("Informe um nome de usuário!"),
+                bgcolor="red",
+                duration=3000, 
+            )
+            page.snack_bar.open = True
+            page.update()
+            return False
+        else:
+            # Validando se o username já foi cadastrado no banco de dados:
+            consulta = f"SELECT * FROM USUARIO WHERE USERNAME = '{username_passado}'"
+            self.gerenciador_banco_de_dados.executarConsulta(consulta)
+
+
+    
+
+           
