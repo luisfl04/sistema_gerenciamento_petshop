@@ -4,6 +4,7 @@
 import flet as ft
 from gerenciador_banco_de_dados import GerenciadorDeBancoDeDados
 from flet import Page, Text, TextField, Dropdown, dropdown, ElevatedButton, Column, Container, alignment, SnackBar, TextButton
+from utilidadades import Utilidades
 
 class TelaDeCadastro:
 
@@ -14,6 +15,8 @@ class TelaDeCadastro:
     def __init__(self):
         # Instâncias usadas na classe:
         self.gerenciador_de_banco_de_dados = GerenciadorDeBancoDeDados()
+        self.utilidades = Utilidades()
+
 
     def exibirTelaDeCadastro(self, page: Page):
         
@@ -125,8 +128,7 @@ class TelaDeCadastro:
         confirmar_senha = self.confirmar_senha.value
 
         # Validando nome e sobrenome passados.
-        
-        
+        self.utilidades.validarNomeESobrenomeNoCadastro(page, nome, sobrenome)
         
         if not nome or not sobrenome:
             page.snack_bar = SnackBar(

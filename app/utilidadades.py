@@ -2,7 +2,7 @@
 # as funções de validação estão na classe 'Utilidades'.
 
 # Libs usadas:
-import flet as ft
+from flet import SnackBar, Text
 
 
 class Utilidades:
@@ -11,13 +11,18 @@ class Utilidades:
     Classe com funções utilitárias para a aplicação.
     """
 
-
-    if not nome or not sobrenome:
-        page.snack_bar = SnackBar(
-            content=Text("Informe os valores para nome e sobrenome!"),
-            bgcolor="red",
-            duration=3000,  # Duração em milissegundos
-            action=TextButton("OK", on_click=lambda e: print("Usuário clicou em OK"))
-        )
-        page.snack_bar.open = True
-        page.update()
+    def validarNomeESobrenomeNoCadastro(self, page, nome_passado, sobrenome_passado):
+        """
+        Função que valida o nome e sobrenome passados no cadastro.
+        """
+        if not nome_passado or not sobrenome_passado:
+            page.snack_bar = SnackBar(
+                content= Text("Informe os valores para nome e sobrenome!"),
+                bgcolor="red",
+                duration=3000,  # Duração em milissegundos
+            )
+            page.snack_bar.open = True
+            page.update()
+            return False
+        
+    def validar
