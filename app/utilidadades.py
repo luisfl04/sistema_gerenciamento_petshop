@@ -57,6 +57,35 @@ class Utilidades:
                 page.snack_bar.open = True
                 page.update()
                 return False
+            
+    def validarEmailNoCadastroDeUsuario(self, page, email_passado):
+        """
+        Função que valida o email passado no cadastro. A validação é feita para verificar se o email já foi cadastrado 
+        no banco de dados e se ele foi deixado vazio no momento do cadastro.
+        """
+        if not email_passado:
+            # Adicionando snackbar de erro na tela:
+            page.snack_bar = SnackBar(
+                content= Text("Informe um email!"),
+                bgcolor="red",
+                duration=3000, 
+            )
+            page.snack_bar.open = True
+            page.update()
+            return False
+        else:
+            # Validando se o email já foi cadastrado no banco de dados:
+            consulta = f"SELECT * FROM USUARIO WHERE EMAIL = '{email_passado}'"
+            resultado_da_consulta = self.gerenciador_banco_de_dados.executarConsulta(consulta)
+            if resultado_da_consulta is not None:
+                page.snack_bar = SnackBar(
+                    content= Text("Email já cadastrado! Informe outro."),
+                    bgcolor="red",
+                    duration=3000, 
+                )
+                page.snack_bar.open = True
+                page.update()
+                return False
 
 
     
