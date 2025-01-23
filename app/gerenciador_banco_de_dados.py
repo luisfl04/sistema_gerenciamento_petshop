@@ -65,20 +65,25 @@ class GerenciadorDeBancoDeDados:
         
     def executarConsulta(self, consulta):
         """
-        Função que executa uma consulta no banco de dados
+        Função que executa uma consulta no banco de dados.
+        Retorna uma lista de valores se houver resultados ou None se não houver.
         """
 
-        conexao = self.conexao
-        cursor = conexao.cursor()
+        conexao_banco_de_dados = self.conexao
+        cursor = conexao_banco_de_dados.cursor()
 
         try:
-            print('Consulta feita -> ', consulta)
             cursor.execute(consulta)
-            conexao.commit()
-            print("Query executada com sucesso!")
+            resultados_da_consulta = cursor.fetchall()
+
+            if resultados_da_consulta:
+                return [linha for linha in resultados_da_consulta] 
+            else:
+                return None  
         except Error as e:
-            print(f"Erro ao executar a query: {e}")
+            return "Erro ao executar a consulta: " + str(e)
         finally:
             cursor.close()
+
         
     

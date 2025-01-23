@@ -47,7 +47,16 @@ class Utilidades:
         else:
             # Validando se o username já foi cadastrado no banco de dados:
             consulta = f"SELECT * FROM USUARIO WHERE USERNAME = '{username_passado}'"
-            self.gerenciador_banco_de_dados.executarConsulta(consulta)
+            resultado_da_consulta = self.gerenciador_banco_de_dados.executarConsulta(consulta)
+            if resultado_da_consulta is not None:
+                page.snack_bar = SnackBar(
+                    content= Text("Nome de usuário já cadastrado! Informe outro."),
+                    bgcolor="red",
+                    duration=3000, 
+                )
+                page.snack_bar.open = True
+                page.update()
+                return False
 
 
     
