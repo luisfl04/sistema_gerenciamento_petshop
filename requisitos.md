@@ -1,7 +1,6 @@
 - O sistema deve ter login e cadastro ->
     Cadastro:  
-        - Validar se username já foi cadastrado no banco de dados no momento de cadastro -> Ok
-        - validar email -> 
+        - Criar função que verifica se o campo passado é nulo ou está com valor -> 
         - validar data de nascimento -> 
         - Validar sexo antes de enviar ao banco de dados -> 
         - Validar tipo de usuário antes de enviar ao banco de dados -> 

@@ -126,6 +126,7 @@ class TelaDeCadastro:
         sobrenome = self.sobrenome.value
         username = self.username.value
         email = self.email.value
+        data_de_nascimento = self.data_nascimento.value
         senha = self.criar_senha.value
         confirmar_senha = self.confirmar_senha.value
 
@@ -133,7 +134,8 @@ class TelaDeCadastro:
         self.utilidades.validarNomeESobrenomeNoCadastroDeUsuario(page, nome, sobrenome) # Validando nome e sobrenome
         self.utilidades.validarUsernameNoCadastroDeUsuario(page, username) # Validando username
         self.utilidades.validarEmailNoCadastroDeUsuario(page, email) # Validando email
-        
+        self.utilidades.validarDataDeNascimentoNoCadastroDeUsuario(page, data_de_nascimento) # Validando data de nascimento
+
 
 
 
