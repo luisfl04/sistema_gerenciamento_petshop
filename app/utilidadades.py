@@ -43,7 +43,6 @@ class Utilidades:
             page.update()
             return False
 
-
     def validarNomeESobrenomeNoCadastroDeUsuario(self, page, nome_passado, sobrenome_passado):
         """
         Função que valida o nome e sobrenome passados no cadastro em relação ao seu valor e número de caracteres.

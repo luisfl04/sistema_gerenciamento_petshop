@@ -1,6 +1,6 @@
 - O sistema deve ter login e cadastro ->
     Cadastro:  
-        - Criar função que verifica se o campo passado é nulo ou está com valor -> 
+        - Validar que todos os campos do formulário verificam se valor não está vazio e entre o número de caracteres permitidos ->  
         - validar data de nascimento -> 
         - Validar sexo antes de enviar ao banco de dados -> 
         - Validar tipo de usuário antes de enviar ao banco de dados -> 
