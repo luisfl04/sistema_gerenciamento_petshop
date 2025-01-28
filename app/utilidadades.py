@@ -27,7 +27,7 @@ class Utilidades:
             )
             page.snack_bar.open = True
             page.update()
-            return False
+            return
     
     def verificarNumeroDeCaracteresDeCampoParaFormulario(self, page, valor_do_campo, titulo_do_campo, caracteres_minimo, caracteres_maximo):
         """
@@ -41,7 +41,7 @@ class Utilidades:
             )
             page.snack_bar.open = True
             page.update()
-            return False
+            return
 
     def validarNomeESobrenomeNoCadastroDeUsuario(self, page, nome_passado, sobrenome_passado):
         """

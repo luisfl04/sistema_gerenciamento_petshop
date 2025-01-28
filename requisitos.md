@@ -1,5 +1,6 @@
 - O sistema deve ter login e cadastro ->
     Cadastro:  
+        - Implementar página para as excessões que pode acontecer no cadastro -> 
         - Validar que todos os campos do formulário verificam se valor não está vazio e entre o número de caracteres permitidos ->  
         - validar data de nascimento -> 
         - Validar sexo antes de enviar ao banco de dados -> 

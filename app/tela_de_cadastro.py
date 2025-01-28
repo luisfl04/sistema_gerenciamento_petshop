@@ -122,48 +122,30 @@ class TelaDeCadastro:
         """
         Função que valida os valores do formulário de cadastro antes da de cadastrar no banco de dados.
         """
-        nome = self.nome.value
-        sobrenome = self.sobrenome.value
-        username = self.username.value
-        email = self.email.value
-        data_de_nascimento = self.data_nascimento.value
-        senha = self.criar_senha.value
-        confirmar_senha = self.confirmar_senha.value
+        
+        try:
+            # Obtendo valores dos campos do formulário:
+            nome = self.nome.value
+            sobrenome = self.sobrenome.value
+            username = self.username.value
+            email = self.email.value
+            data_de_nascimento = self.data_nascimento.value
+            senha = self.criar_senha.value
+            confirmar_senha = self.confirmar_senha.value
 
-        # Validações dos valores do formulário:
-        self.utilidades.validarNomeESobrenomeNoCadastroDeUsuario(page, nome, sobrenome) # Validando nome e sobrenome
-        self.utilidades.validarUsernameNoCadastroDeUsuario(page, username) # Validando username
-        self.utilidades.validarEmailNoCadastroDeUsuario(page, email) # Validando email
-        self.utilidades.validarDataDeNascimentoNoCadastroDeUsuario(page, data_de_nascimento) # Validando data de nascimento
-
-
-
-
-        # Validando se senhas coincidem:
-        if senha != confirmar_senha:
+            # Validações dos valores do formulário:
+            self.utilidades.validarNomeESobrenomeNoCadastroDeUsuario(page, nome, sobrenome) # Validando nome e sobrenome
+            self.utilidades.validarUsernameNoCadastroDeUsuario(page, username) # Validando username
+            self.utilidades.validarEmailNoCadastroDeUsuario(page, email) # Validando email
+        except Exception as e:
             page.snack_bar = SnackBar(
-                content=Text("As senhas não coincidem! Informe novamente"),
+                content= Text(f"Erro ao validar valores do formulário -> {e}"),
                 bgcolor="red",
-                duration=3000,  # Duração em milissegundos
+                duration=3000,
             )
             page.snack_bar.open = True
             page.update()
-            return
-
-        # Validando se a senha tem entre 8 e 14 caracteres:
-        if len(senha) < 8 or len(senha) > 14:
-            page.snack_bar = SnackBar(
-                content=Text("A senha deve ter entre 8 e 14 caracteres!"),
-                bgcolor="red",
-                duration=3000,  # Duração em milissegundos
-            )
-            page.snack_bar.open = True
-            page.update()
-            return
-
-        # Caso todas as validações passem
-        print("Formulário validado com sucesso!")
-
+            return None
 
     def processarCadastroNoBancoDeDados(self):
         pass
