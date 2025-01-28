@@ -15,13 +15,13 @@ class Utilidades:
     def __init__(self):
         self.gerenciador_banco_de_dados = GerenciadorDeBancoDeDados()
 
-    def verificarCampoVazioParaFormulario(self, page, valor_do_campo, nome_do_campo):
+    def verificarCampoVazioParaFormulario(self, page, valor_do_campo, titulo_do_campo):
         """
         Função que verifica se o campo passado está vazio.
         """
         if not valor_do_campo:
             page.snack_bar = SnackBar(
-                content= Text(f"Informe um valor para o {nome_do_campo}!"),
+                content= Text(f"Informe um valor para o {titulo_do_campo}!"),
                 bgcolor="red",
                 duration=3000, 
             )
@@ -29,13 +29,13 @@ class Utilidades:
             page.update()
             return False
     
-    def verificarNumeroDeCaracteresDeCampoParaFormulario(self, page, valor_do_campo, nome_do_campo, caracteres_minimo, caracteres_maximo):
+    def verificarNumeroDeCaracteresDeCampoParaFormulario(self, page, valor_do_campo, titulo_do_campo, caracteres_minimo, caracteres_maximo):
         """
         Função que verifica o número de caracteres de um campo de acordo com o nome do campo passado.
         """
         if len(valor_do_campo) < caracteres_minimo or len(valor_do_campo) > caracteres_maximo:
             page.snack_bar = SnackBar(
-                content= Text(f"O {nome_do_campo} deve ter entre {caracteres_minimo} e {caracteres_maximo} caracteres!"),
+                content= Text(f"O {titulo_do_campo} deve ter entre {caracteres_minimo} e {caracteres_maximo} caracteres!"),
                 bgcolor="red",
                 duration=3000, 
             )
@@ -47,10 +47,21 @@ class Utilidades:
         """
         Função que valida o nome e sobrenome passados no cadastro em relação ao seu valor e número de caracteres.
         """
-        self.verificarCampoVazioParaFormulario(page, nome_passado, "nome")
-        self.verificarCampoVazioParaFormulario(page, sobrenome_passado, "sobrenome")
-        self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, nome_passado, "nome", 2, 30)
-        self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, sobrenome_passado, "sobrenome", 2, 30)
+        
+        try:    
+            self.verificarCampoVazioParaFormulario(page, nome_passado, "nome")
+            self.verificarCampoVazioParaFormulario(page, sobrenome_passado, "sobrenome")
+            self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, nome_passado, "nome", 2, 30)
+            self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, sobrenome_passado, "sobrenome", 2, 30)
+        except Exception as e:
+            page.snack_bar = SnackBar(
+                content= Text(f"Erro ao validar nome e sobrenome: {e}"),
+                bgcolor="red",
+                duration=3000,
+            )
+            page.snack_bar.open = True
+            page.update()
+            return False
 
     
     def validarUsernameNoCadastroDeUsuario(self, page, username_passado):
@@ -58,52 +69,58 @@ class Utilidades:
         Função que valida o username passado no cadastro. A validação é feita para verificar se o username já foi cadastrado 
         no banco de dados e se ele foi deixado vazio no momento do cadastro.
         """
-        
-        self.verificarCampoVazioNoCadastroDeUsuario(page, username_passado, "username")
-
-        
         try:
-            consulta = f"SELECT * FROM USUARIO WHERE USERNAME = '{username_passado}'"
-            resultado_da_consulta = self.gerenciador_banco_de_dados.executarConsulta(consulta)
-            if resultado_da_consulta is not None:
-                page.snack_bar = SnackBar(
-                    content= Text("Nome de usuário já cadastrado! Informe outro."),
-                    bgcolor="red",
-                    duration=3000, 
-                )
-                page.snack_bar.open = True
-                page.update()
-                return False
-        except:
+            self.verificarCampoVazioParaFormulario(page, username_passado, "username")
+            self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, username_passado, "username", 2, 20)
+            self.validarValorExistenteNoBancoDeDadosParaFormulario(page, "USUARIO", "USERNAME", username_passado)
+        except Exception as e:
+            page.snack_bar = SnackBar(
+                content= Text(f"Erro ao validar username: {e}"),
+                bgcolor="red",
+                duration=3000,
+            )
+            page.snack_bar.open = True
+            page.update()
             return False
             
-    def validarEmailNoCadastroDeUsuario(self, page, email_passado):
+
+    def validarValorExistenteNoBancoDeDadosParaFormulario(self, page, titulo_da_tabela, titulo_do_campo, valor_do_campo):
         """
-        Função que valida o email passado no cadastro. A validação é feita para verificar se o email já foi cadastrado 
-        no banco de dados e se ele foi deixado vazio no momento do cadastro.
+        Função que consulta se o valor passado ja foi cadastrado no banco de dados.
         """
-        if not email_passado:
+    
+        consulta = f"SELECT * FROM {titulo_da_tabela} WHERE {titulo_do_campo} = '{valor_do_campo}'"
+        resultado_da_consulta = self.gerenciador_banco_de_dados.executarConsulta(consulta)
+        if resultado_da_consulta is not None:
             page.snack_bar = SnackBar(
-                content= Text("Informe um email!"),
+                content= Text(f"O valor de '{titulo_do_campo}' ja foi cadastrado! Informe outro."),
                 bgcolor="red",
                 duration=3000, 
             )
             page.snack_bar.open = True
             page.update()
             return False
-        else:
-            consulta = f"SELECT * FROM USUARIO WHERE EMAIL = '{email_passado}'"
-            resultado_da_consulta = self.gerenciador_banco_de_dados.executarConsulta(consulta)
-            if resultado_da_consulta is not None:
-                page.snack_bar = SnackBar(
-                    content= Text("Email já cadastrado! Informe outro."),
-                    bgcolor="red",
-                    duration=3000, 
-                )
-                page.snack_bar.open = True
-                page.update()
-                return False
-            
+
+    def validarEmailNoCadastroDeUsuario(self, page, email_passado):
+        """
+        Função que valida o email passado no cadastro. A validação é feita para verificar se o email já foi cadastrado 
+        no banco de dados, se ele atende ao número de caracteres, e se ele foi deixado vazio no momento do cadastro.
+        """
+
+        try:
+            self.verificarCampoVazioParaFormulario(page, email_passado, "email")
+            self.verificarNumeroDeCaracteresDeCampoParaFormulario(page, email_passado, "username", 2, 35)
+            self.validarValorExistenteNoBancoDeDadosParaFormulario(page, "USUARIO", "EMAIL", email_passado)
+        except Exception as e:
+            page.snack_bar = SnackBar(
+                content= Text(f"Erro ao validar email -> {e}"),
+                bgcolor="red",
+                duration=3000,
+            )
+            page.snack_bar.open = True
+            page.update()
+            return False
+                    
     def validarDataDeNascimentoNoCadastroDeUsuario(self, page, data_de_nascimento_passada):
         """
         Função que valida a data de nascimento passada no cadastro. A validação é feita para verificar se a data de nascimento 
